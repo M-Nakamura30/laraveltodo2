@@ -21,7 +21,6 @@ class TaskController extends Controller
     	//選ばれたフォルダに紐づくタスクを取得
     	//フォルダIDに基づくを取得
     	//第一引数がカラム名。第二引数が比較する値
-    	
     	//外部キー
     	// $tasks = Task::where('folder_id', $current_folder->id)->get();
     	//Tasks::where('folder_id', '=', $current_folder->id)->get();
