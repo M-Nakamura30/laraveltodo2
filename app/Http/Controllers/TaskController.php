@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Folder;
+use App\Http\Requests\CreateTask;
 use App\Task;
 use Illuminate\Http\Request;
 
@@ -22,7 +23,7 @@ class TaskController extends Controller
     	//フォルダIDに基づくを取得
     	//第一引数がカラム名。第二引数が比較する値
     	//外部キー
-    	// $tasks = Task::where('folder_id', $current_folder->id)->get();
+    	//$tasks = Task::where('folder_id', $current_folder->id)->get();
     	//Tasks::where('folder_id', '=', $current_folder->id)->get();
     	$tasks = $current_folder->tasks()->get();
 
@@ -34,5 +35,29 @@ class TaskController extends Controller
     		'current_folder_id' => $current_folder->id,
     		'tasks' => $tasks,
     	]);
+    }
+
+    //（/folders/{id}/tasks/create）を作るためにフォルダの ID が必要なので、コントローラーメソッドの引数で受け取って view 関数でテンプレートに渡す。
+    public function showCreateForm(int $id)
+    {
+        return view('tasks/create', [
+            'folder_id' => $id
+        ]);
+    }
+
+    public function create(int $id, CreateTask $request)
+    {
+        $current_folder = Folder::find($id);
+
+        $task = new Task();
+        $task->title = $request->title;
+        $task->due_date = $request->due_date;
+
+        $current_folder->tasks()->save($task);
+        //$current_folder に紐づくタスクを作成
+
+        return redirect()->route('tasks.index', [
+            'id' => $current_folder->id,
+        ]);
     }
 }
