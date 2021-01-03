@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Folder;
-use Illuminate\Http\Request;
 use App\Http\Requests\CreateFolder;
+use Illuminate\Http\Request;
 
 class FolderController extends Controller
 {
@@ -25,6 +25,7 @@ class FolderController extends Controller
 
     	//タイトルに入力値を代入する
     	$folder->title = $request->title;
+        $folder->user_id = $request->user()->id;
 
     	$folder->save();
 
