@@ -11,9 +11,9 @@ class CreateFolder extends FormRequest
      *
      * @return bool
      */
+    public function authorize()
     //リクエストの内容に基づいた権限チェック
     //今回は使わないためにtrue→リクエストを受け付ける
-    public function authorize()
     {
         return true;
     }
