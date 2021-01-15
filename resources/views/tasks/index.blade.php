@@ -33,12 +33,13 @@
               </a>
             </div>
           </div>
-          <table class="table">
-            <thead>
+          <table class="table"
+>            <thead>
             <tr>
               <th>タイトル</th>
               <th>状態</th>
               <th>期限</th>
+              <th></th>
               <th></th>
             </tr>
             </thead>
@@ -51,6 +52,7 @@
                 </td>
                 <td>{{ $task->formatted_due_date }}</td>
                 <td><a href="{{ route('tasks.edit', ['id' => $task->folder_id, 'task_id' => $task->id]) }}">編集</a></td>
+                <td style="width: 44px;"><a href="{{ route('tasks.delete', ['id' => $task->folder_id, 'task_id' => $task->id]) }}">削除</a></td>
               </tr>
             @endforeach
             </tbody>
