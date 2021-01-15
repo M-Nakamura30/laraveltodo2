@@ -98,6 +98,25 @@ class TaskController extends Controller
         ]);
     }
 
+    public function showDeleteForm(Folder $folder, Task $task)
+    {
+       $this->checkRelation($folder, $task);
+       
+       return view('tasks/delete', [
+            'task' => $task,
+       ]);
+     }
+
+    public function delete(Folder $folder, Task $task)
+    {
+        $this->checkRelation($folder, $task);
+        $task->delete();
+
+        return redirect()->route('tasks.index', [
+            'id' => $task->folder_id,
+        ]);
+    }
+
     /**
      * フォルダとタスクの関連性があるか調べる
      * @param Folder $folder
